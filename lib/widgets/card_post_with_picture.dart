@@ -10,6 +10,7 @@ import '../model/api_page.dart';
 import '../model/chat_user.dart';
 import '../model/post.dart';
 import '../utilities/tools.dart';
+import '../view/comment_screen.dart';
 import '../view/show_custom_friend.dart';
 import '../view/show_custom_page.dart';
 
@@ -287,18 +288,21 @@ class _CardPostWithPictureState extends State<CardPostWithPicture> {
                       ),
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.mode_comment_outlined,
-                        color: Colors.black,
-                      ),
-                      label: const Text(
-                        "comment",
-                        style: TextStyle(color: Colors.black),
-                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CommentScreen(postId: '${widget.post.createAt}_${widget.post.email.substring(0, widget.post.email.indexOf('@'))}'
+                                .toString()
+                                .toLowerCase()
+                                .trim()),
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.mode_comment_outlined,color: Colors.black,),
+                      label: const Text("comment",style: TextStyle(color: Colors.black),),
                       style: ElevatedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(),
-                        backgroundColor: Colors.transparent,
+                        backgroundColor : Colors.transparent,
                         elevation: 0,
                       ),
                     ),

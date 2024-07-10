@@ -26,6 +26,75 @@ class API extends ChangeNotifier {
   bool isHavePage = false;
   bool isAdded = false;
 
+  Future<List<Map<String, dynamic>>> fetchComments(String postId) async {
+    try {
+      QuerySnapshot snapshot = await firestore
+          .collection('posts')
+          .doc(postId)
+          .collection('comments')
+          .orderBy('timestamp', descending: true)
+          .get();
+
+      return snapshot.docs.map((doc) {
+        return {
+          'id': doc.id, // Ensure the ID is included
+          'comment': doc['comment'],
+          'timestamp': doc['timestamp'],
+          'userId': doc['userId'],
+          'userName': doc['userName'],
+        };
+      }).toList();
+    } catch (e) {
+      print("Error fetching comments: $e");
+      return [];
+    }
+  }
+
+  Future<void> deleteComment(String postId, String commentId) async {
+    try {
+      DocumentReference commentRef = firestore
+          .collection('posts')
+          .doc(postId)
+          .collection('comments')
+          .doc(commentId);
+
+      DocumentSnapshot commentSnapshot = await commentRef.get();
+
+      if (commentSnapshot.exists) {
+        Map<String, dynamic> commentData = commentSnapshot.data() as Map<String, dynamic>;
+        if (commentData['userId'] == me?.id) {
+          await commentRef.delete();
+          notifyListeners();
+        } else {
+          print("Error deleting comment: User is not the author of the comment.");
+        }
+      } else {
+        print("Error deleting comment: Comment does not exist.");
+      }
+    } catch (e) {
+      print("Error deleting comment: $e");
+    }
+  }
+
+
+
+  Future<void> addComment(String postId, String comment) async {
+    try {
+      await firestore.collection('posts').doc(postId).collection('comments').add({
+        'comment': comment,
+        'timestamp': Timestamp.now(),
+        'userId': me?.id,
+        'userName': me?.name,
+      });
+      notifyListeners();
+    } catch (e) {
+      print("Error adding comment: $e");
+    }
+  }
+
+
+
+
   Future<void> getFirebaseMessagesToken() async {
     try {
       await fMessaging.requestPermission(

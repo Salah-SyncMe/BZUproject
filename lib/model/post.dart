@@ -1,14 +1,14 @@
 class Post {
   Post(
       {required this.type,
-      required this.images,
-      required this.imageUrl,
-      required this.name,
-      required this.createAt,
-      required this.text,
-      required this.id,
-      required this.email,
-      required this.adminName});
+        required this.images,
+        required this.imageUrl,
+        required this.name,
+        required this.createAt,
+        required this.text,
+        required this.id,
+        required this.email,
+        required this.adminName});
   late final List<String> images;
   late final String imageUrl;
   late final String name;
