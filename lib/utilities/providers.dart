@@ -10,7 +10,6 @@ import '../controller/registeration_controller.dart';
 import '../model/api.dart';
 
 List<SingleChildWidget> providers = [
-  ChangeNotifierProvider(create: (context) => HomeController()),
   ChangeNotifierProvider(create: (context) => LoginController()),
   ChangeNotifierProvider(create: (context) => RegisterController()),
   ChangeNotifierProvider(create: (context) => CustomFileImage()),

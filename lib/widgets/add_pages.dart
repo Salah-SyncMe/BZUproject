@@ -13,14 +13,14 @@ import '../utilities/tools.dart';
 import '../widgets/error_widget.dart';
 import 'flutter_toast.dart';
 
-class CustomAdd extends StatefulWidget {
-  const CustomAdd({super.key});
+class CustomAddPages extends StatefulWidget {
+  const CustomAddPages({super.key});
 
   @override
-  State<CustomAdd> createState() => _CustomAddState();
+  State<CustomAddPages> createState() => _CustomAddPagesState();
 }
 
-class _CustomAddState extends State<CustomAdd> {
+class _CustomAddPagesState extends State<CustomAddPages> {
   List<PageUser> list = [];
 
   @override

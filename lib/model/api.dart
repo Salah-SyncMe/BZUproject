@@ -26,10 +26,11 @@ class API extends ChangeNotifier {
   bool isHavePage = false;
   bool isAdded = false;
 
+  
   Future<List<Map<String, dynamic>>> fetchComments(String postId) async {
     try {
       QuerySnapshot snapshot = await firestore
-          .collection('posts')
+          .collection('comments')
           .doc(postId)
           .collection('comments')
           .orderBy('timestamp', descending: true)
@@ -53,7 +54,7 @@ class API extends ChangeNotifier {
   Future<void> deleteComment(String postId, String commentId) async {
     try {
       DocumentReference commentRef = firestore
-          .collection('posts')
+          .collection('comments')
           .doc(postId)
           .collection('comments')
           .doc(commentId);
@@ -80,7 +81,7 @@ class API extends ChangeNotifier {
 
   Future<void> addComment(String postId, String comment) async {
     try {
-      await firestore.collection('posts').doc(postId).collection('comments').add({
+      await firestore.collection('comments').doc(postId).collection('comments').add({
         'comment': comment,
         'timestamp': Timestamp.now(),
         'userId': me?.id,

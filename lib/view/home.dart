@@ -42,9 +42,9 @@ class _HomeState extends State<Home> {
             AllPages(),
             CurrentPage(),
             Friends(),
-            CustomAdd()
+            CustomAddPages()
           ]
-        : const [Profile(), HomeShow(), AllPages(), Friends(), CustomAdd()];
+        : const [Profile(), HomeShow(), AllPages(), Friends(), CustomAddPages()];
 
     return PopScope(
       canPop: true,
